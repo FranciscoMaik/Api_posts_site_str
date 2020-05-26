@@ -5,9 +5,9 @@ module.exports = {
   development: {
     client: "pg", //qual o tipo de banco
     connection: {
-      database: "", //nome do banco criado no postgres
-      user: "", //ususario do banco
-      password: "", //senha do banco
+      database: "strposts", //nome do banco criado no postgres
+      user: "postgres", //ususario do banco
+      password: "3081", //senha do banco
     },
     migrations: {
       tableName: "knex_migrates", //nome da tabela de migações
