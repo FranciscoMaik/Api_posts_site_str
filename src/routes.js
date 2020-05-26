@@ -11,5 +11,7 @@ const PostsController = require("./controllers/PostsControllers");
 
 //rota de posts
 routes.get("/posts", PostsController.index);
+routes.post("/posts", PostsController.create);
+routes.delete("/posts/:id", PostsController.delete);
 
 module.exports = routes;
