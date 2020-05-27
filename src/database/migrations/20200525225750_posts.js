@@ -9,6 +9,7 @@ exports.up = function (knex) {
     table.string("responsible").notNullable();
     table.string("paymenttype").notNullable();
     table.string("delivery").notNullable();
+    table.string("producttype").notNullable();
   });
 };
 

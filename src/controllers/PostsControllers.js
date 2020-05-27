@@ -3,7 +3,15 @@ const database = require("../database/connection");
 module.exports = {
   //rota para o retorno de todos os posts
   async index(request, response) {
-    const posts = await database("posts").select("*");
+    const producttype = request.headers.state;
+    let posts = "";
+    if (producttype === "todos") {
+      posts = await database("posts").select("*");
+    } else {
+      posts = await database("posts")
+        .where("producttype", "=", producttype)
+        .select("*");
+    }
     return response.json(posts);
   },
   async create(request, response) {
@@ -15,6 +23,7 @@ module.exports = {
       responsible,
       paymenttype,
       delivery,
+      producttype,
     } = request.body;
 
     await database("posts").insert({
@@ -25,6 +34,7 @@ module.exports = {
       responsible,
       paymenttype,
       delivery,
+      producttype,
     });
 
     return response.status(200).send();
