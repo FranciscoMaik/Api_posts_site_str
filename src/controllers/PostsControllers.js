@@ -1,4 +1,5 @@
 const database = require("../database/connection");
+const validated = require("validator");
 
 module.exports = {
   //rota para o retorno de todos os posts
@@ -12,6 +13,7 @@ module.exports = {
         .where("producttype", "=", producttype)
         .select("*");
     }
+
     return response.json(posts);
   },
   async create(request, response) {
@@ -24,20 +26,36 @@ module.exports = {
       paymenttype,
       delivery,
       producttype,
+      idadmin,
     } = request.body;
 
-    await database("posts").insert({
-      urlimage,
-      companyname,
-      operation,
-      contact,
-      responsible,
-      paymenttype,
-      delivery,
-      producttype,
-    });
+    console.log(idadmin);
 
-    return response.status(200).send();
+    if (validated.isUUID(idadmin)) {
+      const administrador = await database("admin")
+        .where("id", "=", idadmin)
+        .select("*")
+        .first();
+
+      if (administrador) {
+        await database("posts").insert({
+          urlimage,
+          companyname,
+          operation,
+          contact,
+          responsible,
+          paymenttype,
+          delivery,
+          producttype,
+        });
+
+        return response.status(200).send();
+      } else {
+        return response.status(401).send();
+      }
+    } else {
+      return response.status(401).send();
+    }
   },
 
   async delete(request, response) {
