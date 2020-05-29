@@ -35,3 +35,6 @@ GET - admin: cria um administrador;
 POST - admin: retorna as informações de um administrador;
 
 DELETE - admin: deleta o administrador;
+
+<p style="text-align: center">
+<a href="https://github.com/FranciscoMaik/Api_posts_site_str/blob/master/LICENSE"> Licensa </a> </p>
